@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:="http://www.w3.org/1999/xhtml"
+                xmlns:ez="http://java.sun.com/jsf/composite/ezcomp/"
+                template="./template/DefaultTemplate.xhtml">
+
+    <ui:define name="content">
+
+
+        <h:form id="form"  styleClass="resources/css/cupertino/theme.css">
+            <p:dataTable var="game" value="#{searchResult.game}" paginator="true" rows="3"
+                         selection="#{searchResult.selectedGame}" selectionMode="single"
+                         rowSelectListener="#{searchResult.getSelect()}" style="height: 30px; width: 350px">
+         
+                <f:facet name="header">
+                    Search Results
+                </f:facet>
+        
+                <p:column sortBy="#{game.gameTitle}" filterBy="#{game.gameTitle}" >
+                    <f:facet name="header">
+                        <h:outputText value="Game Name" />
+                    </f:facet>
+                    <p:graphicImage value="/images/gamePictures/#{game.gameTitle}.jpg" />
+                </p:column>
+
+                <p:column sortBy="#{game.averageRating}" filterBy="#{game.averageRating}">
+                    <f:facet name="header">
+                        <h:outputText value="Average Rating" />
+                    </f:facet>
+                    <h:outputText value="#{game.gameTitle}"/>
+                    <br/>
+                    <h:outputText value="Average Game Rating : #{game.averageRating}" />
+
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ez="http://java.sun.com/jsf/composite/ezcomp/"
+                template="./template/DefaultTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel id="CastRate-panel" header="Your Review">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Violence: " />
+                    <p:rating value="#{createReviewMB.rateViolence}" stars="5"/>
+
+                    <h:outputText value="Violence: " />
+                    <p:rating value="#{createReviewMB.rateViolence}" stars="5"/>
+
+                    <h:outputText value="Addictive: " />
+                    <p:rating value="#{createReviewMB.rateAddictive}" stars="5" />
+
+                    <h:outputText value="Coarse Language:  " />
+                    <p:rating value="#{createReviewMB.rateCoarseLanguage}" stars="5" />
+
+                    <h:outputText value="Education: " />
+                    <p:rating value="#{createReviewMB.rateEducation}" stars="5" />
+
+                    <h:outputText value="Your Review" />
+                    <h:outputText value="" />
+                </h:panelGrid>
+
+                <h:panelGrid columns="1">
+                    <h:inputTextarea cols="40" rows="6" required="yes" requiredMessage="Enter Your Comment!" label="newComment" id="newComment" value="#{createReviewMB.reviewText}" />
+
+                    <p:commandButton update="CastRate-panel" value="Submit" actionListener="#{createReviewMB.submitReviewByParent}" />
+                </h:panelGrid>
+
+                <p:ajaxStatus style="width:16px;height:16px;">
+                    <f:facet name="start">
+                        <h:graphicImage value="images/ajaxloading.gif" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

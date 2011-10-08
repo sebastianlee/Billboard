@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:="http://www.w3.org/1999/xhtml"
+                xmlns:ez="http://java.sun.com/jsf/composite/ezcomp/"
+                template="./template/DefaultTemplate.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="form" scrollable="true" >
+            <!--  <p:panel width="350px"> -->
+            <p:dataTable var="gameReview" value="#{viewReviewMB.gameReview}"
+                         selection="#{viewReviewMB.selectedGame}" selectionMode="single" style="height: 30px; width: 350px" rows ="5">
+                <f:facet name="header">
+                    Game Details
+                </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        Game Name
+                    </f:facet>
+                    <p:graphicImage value="/images/gamePictures/#{gameReview.gameTitle}.jpg" />
+                    <br/>
+
+                </p:column>
+
+                <p:column width="230">
+                    <f:facet name="header">
+                   <h:outputText value="View All Reviews"/>
+                    <p:commandLink  title="View Review" action="#{viewReviewMB.viewMoreInfo}" style=" border:0">
+                        <p:graphicImage value="/images/search.png" style=" border: 0" />
+                    </p:commandLink>
+                    </f:facet>
+                    <h:outputText value="Average Game Rating : #{gameReview.averageRating}" />
+                    <br/>
+                    <h:outputText value="MDA Rating : #{gameReview.mdaRating}" />
+                    <br/>
+                    <h:outputText value="Average Violence : #{gameReview.averageViolence}" />
+                    <br/>
+                    <h:outputText value="Average Addiction : #{gameReview.averageAddiction}" />
+                    <br/>
+                    <h:outputText value="Average Language : #{gameReview.averageLang}" />
+                    <br/>
+                    <h:outputText value="Average Education : #{gameReview.averageEducation}" />
+
+                </p:column>
+            </p:dataTable>
+
+            <!--    <p:outputPanel style="display:block; border:0;" width="350px" >
+            -->    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <p:dataTable var="gameReview" value="#{viewReviewMB.gameReview}"
+                         selection="#{viewReviewMB.selectedGame}" selectionMode="single" style="height: 30px; width: 350px" rows ="5">
+
+                <f:facet name="header">
+                    View reviews from other webpages
+                </f:facet>
+
+                <p:column>
+
+                    <!-- Mda -->
+                    <p:commandLink  title="View Gamespot"  action="#{viewReviewMB.viewMda()}" style=" border:0; width:22px; height: 22px;">
+                        <p:graphicImage value="/images/mda.jpg" style=" border: 0" />
+                    </p:commandLink>
+
+
+                    <!-- twitter -->
+                    <a href="http://twitter.com/#{gameReview.twitter}"><img src="http://www.twitterbuttons.com/upload/images/6dc65623fdtwitter-bg-t.png" title="By: TwitterButtons.com" alt="By: TwitterButtons.com" width="22" height="22" style="border:0" /></a>
+
+                    <!-- gamespot -->
+                    <p:commandLink  title="View Gamespot"  action="#{viewReviewMB.viewGamespot()}" style=" border:0; width:22px; height: 22px;">
+                        <p:graphicImage value="/images/gamespot.jpg" style=" border: 0" />
+                    </p:commandLink>
+
+                    <!-- IGN Bookmarks -->
+                    <p:commandLink  title="View IGN"  action="#{viewReviewMB.viewIgn()}" style=" border:0; width:22px; height: 22px;">
+                        <p:graphicImage value="/images/ign.png" style=" border: 0" />
+                    </p:commandLink>
+
+                    <!-- GameZone Bookmarks -->
+                    <p:commandLink  title="View IGN"  action="#{viewReviewMB.viewGamezone()}" style=" border:0; width:22px; height: 22px;">
+                        <p:graphicImage value="/images/gamezone.jpg" style=" border: 0" />
+                    </p:commandLink>
+
+                    <!-- Google Bookmarks -->
+                    <p:commandLink  title="View Google"  action="#{viewReviewMB.viewGoogle()}" style=" border:0; width:22px; height: 22px;">
+                        <p:graphicImage value="/images/google.png" style=" border: 0" />
+                    </p:commandLink>
+
+
+                    <!-- facebook -->
+                    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2F%23%21%2Fpages%2F#{gameReview.facebookName}%2F#{gameReview.gameNumber}&amp;width=320&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=350" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:320px; height:350px;" allowTransparency="true"></iframe>
+
+
+                    <!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                        <a class="addthis_button_preferred_1"></a>
+                        <a class="addthis_button_preferred_2"></a>
+                        <a class="addthis_button_preferred_3"></a>
+                        <a class="addthis_button_preferred_4"></a>
+                        <a class="addthis_button_compact"></a>
+                    </div>
+                    <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+                    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=artishx"></script>
+                    <!-- AddThis Button END -->
+                    
+                </p:column>
+            </p:dataTable>
+            <br/><br/><br/><br/>
+            <!-- </p:outputPanel>
+         </p:panel> -->
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ez="http://java.sun.com/jsf/composite/ezcomp/"
+                template="./template/DefaultTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel id="reviewPanel" header="">
+
+                <font size="5" color="brown"><b>#{createReviewMB.gameTitle}</b></font>
+                <br/>
+                <p:commandLink  title="View Detail" action="#{createReviewMB.goToSubmitReviewForm}">
+                    ( Submit Your Own Review )
+                </p:commandLink>
+                <br/>
+
+                <p:dataList value="#{createReviewMB.gameReviewList}" var="gameReview" id="datalist" >
+                    <p:column>
+
+                        <b><u>Review by: <h:outputText style=" color:  black;" value=" #{createReviewMB.reviewNameNdate(gameReview.id)}" /></u></b>
+                        <br/>
+                        <b>[Verdict : <h:outputText style=" color: black" value=" #{gameReview.userRating}" />]</b>
+                        <br/>
+                        <b>Violence :</b> <h:outputText style=" color: gray" value=" #{gameReview.violence}" />
+                        <br/>
+                        <b>Addiction :</b> <h:outputText style=" color: gray" value=" #{gameReview.addiction}" />
+                        <br/>
+                        <b>Language :</b> <h:outputText style=" color: gray" value=" #{gameReview.lang}" />
+                        <br/>
+                        <b>Education :</b> <h:outputText style=" color: gray" value=" #{gameReview.education}" />
+                        <br/>
+                        <p:outputPanel style="display:block; width: 300px">  #{gameReview.comments}  </p:outputPanel>
+
+                        #{createReviewMB.retrieveLikeCount(gameReview.id)} <img alt="NUS_logo" src="images/up.jpg" width="30px" height="30px" />  #{createReviewMB.retrieveDislikeCount(gameReview.id)} <img alt="NUS_logo" src="images/down.jpg" width="30px" height="30px" />
+                        [
+                        <p:commandLink title="View Detail" action="#{createReviewMB.likeAreview(gameReview.id)}">
+                            Like                            
+                        </p:commandLink>
+                        |
+                        <p:commandLink  title="View Detail" action="#{createReviewMB.dislikeAreview(gameReview.id)}">
+                            Dislike
+                        </p:commandLink>
+                        ]
+                        <br/>
+                        ---------------------------------------------------------
+                        <br/>
+                    </p:column>
+                </p:dataList>
+
+
+                <p:ajaxStatus style="width:16px;height:16px;">
+                    <f:facet name="start">
+                        <h:graphicImage value="images/ajaxloading.gif" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

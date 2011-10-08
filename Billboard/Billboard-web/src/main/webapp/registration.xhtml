@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template/DefaultTemplate.xhtml"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="Registration">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Email: " />
+                    <h:inputText id="email" required="true" value="#{registrationMB.email}" />
+
+                    <h:outputText value="Password: " />
+                    <h:inputSecret id="password" required="true" value="#{registrationMB.password}" />
+
+                    <h:outputText value="Given name: " />
+                    <h:inputText id="gName" required="true" value="#{registrationMB.gName}" />
+
+                    <h:outputText value="Family name: " />
+                    <h:inputText id="fName" required="true" value="#{registrationMB.fName}" />
+
+                    <h:outputText value="Age: " />
+                    <h:inputText id="age" required="true" value="#{registrationMB.age}" />
+                </h:panelGrid>
+                <p:commandButton value="Submit" actionListener="#{registrationMB.register}" />
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

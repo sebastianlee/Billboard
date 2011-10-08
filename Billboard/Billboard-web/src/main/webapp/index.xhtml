@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ez="http://java.sun.com/jsf/composite/ezcomp/"
+                template="./template/DefaultTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:fb="http://www.facebook.com/2008/fbml">
+
+    <ui:define name="title">
+        Home Page
+    </ui:define>
+
+    <ui:define name="content">
+        <html>
+
+            <p:commandButton type="button" value="Login" onclick="dlg.show()" />
+            <p:commandButton type="button" value="Sign up" onclick="dlg2.show()" />
+            <!--
+               <fb:login-button onlogin="alert('Authenticated!');"></fb:login-button>
+            -->
+            <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/XdCommReceiver.js"
+            type="text/javascript"></script>
+
+            <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"
+            type="text/javascript"></script>
+
+            <script type="text/javascript">
+            FB.init("YOUR_API_KEY_HERE", "xd_receiver.htm");
+            </script>
+
+            <script type="text/javascript" language="javascript">
+                function loadName(){
+                    name = "#{loginMB.checkStatus()}";
+                    var ot = document.getElementById("formId:usernameId");
+                    ot.textContent=name;
+                }
+            </script>
+
+            <h:body onload="loadName();">
+                <h:form id="formId">
+                    <h:outputText id="usernameId" value=""/>
+                </h:form>
+            </h:body>
+
+            <p:dialog header="Login" widgetVar="dlg" resizable="false">
+                <h:form>
+
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="Username" value="Username:" />
+                        <p:inputText id="firstname" value="#{loginMB.userId}" />
+
+                        <h:outputLabel for="Password" value="Password:" />
+                        <p:inputText id="password" value="#{loginMB.password}" password="true" />
+                    </h:panelGrid>
+                    <p:commandButton value="Submit" update=":display" actionListener="#{loginMB.register}"/>
+                    <p:commandButton value="Cancel" update=":display2" oncomplete="dlg.hide();"/>
+                </h:form>
+                <p:outputPanel id="display" style="display:block;margin-top:10px;">
+                    <h:outputText id="errorMsg" value="#{loginMB.errorMsg}" rendered="#{not empty loginMB.errorMsg}"/>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog header="Sign Up" widgetVar="dlg2" resizable="false">
+                <h:form>
+
+                    <h:panelGrid columns="2" style="margin-bottom:10px">
+                        <h:outputLabel for="Username" value="Username:" />
+                        <p:inputText id="firstname" value="#{loginMB.userId}" />
+
+                        <h:outputLabel for="Password" value="Password:" />
+                        <p:inputText id="password" value="#{loginMB.password}" password="true" />
+
+                        <h:outputLabel for="Email" value="Email:" />
+                        <p:inputText id="email" value="#{loginMB.email}" />
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="Submit" update=":display2" oncomplete="dlg2.hide();" actionListener="#{loginMB.register}"/>
+                    <p:commandButton value="Cancel" update=":display2" oncomplete="dlg.hide();"/>
+                    <h:outputText id="errorMsg" value="#{loginMB.errorMsg}" rendered="#{not empty loginMB.errorMsg}"/>
+
+                </h:form>
+            </p:dialog>
+
+            <p:layout style="width:1000px;height:950px;">
+                <p:layoutUnit position="left" width="730" resizable="true" minWidth="50" maxWidth="800" image="/images/pic/bg.jpg" >
+
+                    <h:form>
+                        <p:dataGrid var="car" value="#{imageSwitchBean.images}" columns="4"
+                                    rows="9" style=" border-spacing:1px;">
+                            <p:column>
+                                <p:panel id="pnl" style="height:160px; width:140px; border:0px;" >
+
+                                    <p:lightBox>
+                                        <p:imageSwitch effect="fade" speed="4000">
+                                            <ui:repeat value="#{imageSwitchBean.images}" var="image">
+                                                <h:outputLink value="images/pic/#{image}" title="Event">
+                                                    <p:graphicImage value="images/pic/#{image}" style="height: 160px; width: 130px; position: absolute" />
+                                                </h:outputLink>
+                                            </ui:repeat>
+                                        </p:imageSwitch>
+
+                                    </p:lightBox>
+                                </p:panel>
+                                <p:draggable for="pnl" opacity="0.3" />
+                            </p:column>
+                        </p:dataGrid>
+                    </h:form>
+
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form>
+                        Calendar
+                        <p:calendar value="#{calendarBean.date1}" mode="inline"/>
+                        <br/>
+                        Ratings
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Number of Views:" />
+                            <p:rating value="#{ratingController.rating1}" />
+
+                            <h:outputText value="Popularity:" />
+                            <p:rating value="#{ratingController.rating2}" stars="5"/>
+
+                            <h:outputText value="Price:" />
+                            <p:rating value="#{ratingController.rating2}" stars="5"/>
+
+                            <h:outputText value="Popularity:" />
+                            <p:rating value="#{ratingController.rating2}" stars="5"/>
+
+                            <h:outputText value="Time Posted:" />
+                            <p:rating value="#{ratingController.rating2}" stars="5"/>
+
+                            <h:outputText value="Exposure:" />
+                            <p:rating value="#{ratingController.rating2}" stars="5"/>
+                            <br/>
+                            Create your own Billboard!
+                            <p:commandButton type="button" value="Create" onclick="{loginMB.checkStatus()}"/>
+
+
+
+                        </h:panelGrid>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </html>
+    </ui:define>
+</ui:composition>
+
+

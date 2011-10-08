@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ez="http://java.sun.com/jsf/composite/ezcomp/"
+                xmlns:fb="http://www.facebook.com/2008/fbml"
+                template="./template/DefaultTemplate.xhtml">
+
+    <ui:define name="title">
+        Index
+    </ui:define>
+
+    <ui:define name="content">
+        <p:commandButton type="button" value="Login" onclick="dlg.show()" />
+        <p:commandButton type="button" value="Sign up" onclick="dlg2.show()" />
+        <fb:login-button onlogin="alert('Authenticated!');"></fb:login-button>
+
+        <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/XdCommReceiver.js"
+        type="text/javascript"></script>
+
+        <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"
+        type="text/javascript"></script>
+
+        <script type="text/javascript">
+        FB.init("YOUR_API_KEY_HERE", "xd_receiver.htm");
+        </script>
+   
+
+<p:dialog header="Login" widgetVar="dlg" resizable="false">
+    <h:form>
+
+        <h:panelGrid columns="2" style="margin-bottom:10px">
+            <h:outputLabel for="Username" value="Username:" />
+            <p:inputText id="firstname" value="#{index.username}" />
+
+            <h:outputLabel for="Password" value="Password:" />
+            <p:inputText id="password" value="#{index.password}" password="true" />
+        </h:panelGrid>
+
+        <p:commandButton value="Submit" update=":display" oncomplete="dlg.hide();"/>
+
+    </h:form>
+</p:dialog>
+
+        <p:dialog header="Login" widgetVar="dlg2" resizable="false">
+    <h:form>
+
+        <h:panelGrid columns="2" style="margin-bottom:10px">
+            <h:outputLabel for="Username" value="Username:" />
+            <p:inputText id="firstname" value="#{index.username}" />
+
+            <h:outputLabel for="Password" value="Password:" />
+            <p:inputText id="password" value="#{index.password}" password="true" />
+
+            <h:outputLabel for="Email" value="Email:" />
+            <p:inputText id="email" value="#{index.email}" />
+
+        </h:panelGrid>
+
+        <p:commandButton value="Submit" update=":display" oncomplete="dlg2.hide();"/>
+
+    </h:form>
+</p:dialog>
+
+<p:outputPanel id="display" style="display:block;margin-top:10px;">
+    <h:outputText id="username" value="Hello #{index.username}" rendered="#{not empty index.username}"/>
+    <h:outputText id="password" value="Hello #{index.password}" rendered="#{not empty index.password}"/>
+
+</p:outputPanel>  
+
+
+
+
+
+
+
+
+
+ </ui:define>
+</ui:composition>
